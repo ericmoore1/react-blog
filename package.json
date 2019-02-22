@@ -1,0 +1,25 @@
+{
+  "name": "react-blog",
+  "version": "1.0.0",
+  "description": "react blog",
+  "main": "index.js",
+  "dependencies": {
+    "blog": "^1.0.0",
+    "create-react-app": "^2.1.5",
+    "npm": "^6.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericmoore1/react-blog.git"
+  },
+  "author": "Eric Moore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericmoore1/react-blog/issues"
+  },
+  "homepage": "https://github.com/ericmoore1/react-blog#readme"
+}
