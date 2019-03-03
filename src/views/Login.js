@@ -10,11 +10,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+
 const styles = theme => ({
   root: {
-    // ...theme.mixins.gutters(),
-    // paddingTop: theme.spacing.unit * 2,
-    // paddingBottom: theme.spacing.unit * 2,
     width : '40%',
     marginLeft : '30%',
     marginTop : '3%',
@@ -46,7 +44,7 @@ const Login = (props) => {
   const [login, setLogin] = useState({ email : "", password : ""});
   const [loginDialogOpen, setLoginDialog] = useState(false);
   const error = ( object ) => {
-    let isValid = object.email === "" && object.password === ""
+    let isValid = object.email === "" || object.password === ""
     if(isValid){
       setLoginDialog(true);
       return;
@@ -93,8 +91,6 @@ const Login = (props) => {
         </Button>
 
       </Paper>
-
-
     </div>
   );
 }
