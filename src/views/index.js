@@ -1,3 +1,5 @@
 import Login from './Login';
 import Blogs from './Blogs';
-export {Login, Blogs};
+import Blog from './Blog';
+
+export {Login, Blogs, Blog};

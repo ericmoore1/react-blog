@@ -4,8 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 
 const styles = {
   card: {
@@ -18,13 +19,17 @@ const styles = {
   title: {
     fontSize: 14,
   },
-  cardButton : {
-    marginLeft : 'calc(50% - (width / 2))'
+  link : {
+    textDecoration : 'none',
+  },
+
+  buttonHolder : {
+    float : 'right'
   }
 };
 
 const BlogCard = (props) => {
-  const { classes, title, subtitle } = props;
+  const { classes, id, title, subtitle } = props;
 
   return (
     <Card className={classes.card}>
@@ -38,8 +43,8 @@ const BlogCard = (props) => {
           {subtitle}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small" className={classes.cardButton}>Learn More</Button>
+      <CardActions className={classes.buttonHolder}>
+        <Link to={"/blog/" + id } className={classes.link}><Button variant="outlined" color="primary">See More</Button></Link>
       </CardActions>
     </Card>
   );
@@ -49,6 +54,7 @@ BlogCard.propTypes = {
   classes: PropTypes.object.isRequired,
   title : PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  id : PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(BlogCard);

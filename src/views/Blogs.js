@@ -3,7 +3,7 @@ import {Header,BlogCard} from '../components/index';
 import {BlogsAPI} from '../api/index';
 
 const GET_BLOGS = BlogsAPI.getBlogs;
-const BLOG_CARDS = ( blogs ) =>  blogs.map( ( blog, index ) =>  <BlogCard title={blog.title} subtitle={blog.subtitle} />);
+const BLOG_CARDS = ( blogs ) =>  blogs.map( ( blog, index ) =>  <BlogCard key={blog.id} {...blog} />);
 
 const Blogs = () => {
   // Declare a new state variable, which we'll call "count"
@@ -13,7 +13,7 @@ const Blogs = () => {
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
-    GET_BLOGS((bl) => {setBlogs(bl); console.log("BL: ",bl);} );
+    GET_BLOGS((bl) => setBlogs(bl) );
   }
   console.log(blogs);
 
