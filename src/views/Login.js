@@ -6,7 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 const styles = theme => ({
   root: {
     // ...theme.mixins.gutters(),
@@ -25,19 +28,45 @@ const styles = theme => ({
    marginRight: theme.spacing.unit,
  }
 });
+const LoginDialog = (props) => {
+   const { loginDialogOpen , setLoginDialog, title, message} = props;
+return(
+  <Dialog open={loginDialogOpen} onClose={() => setLoginDialog(false)} aria-labelledby="simple-dialog-title" >
+    <DialogTitle id="simple-dialog-title">{title}</DialogTitle>
+    <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {message}
+            </DialogContentText>
+          </DialogContent>
+  </Dialog>)
 
+}
 const Login = (props) => {
   const { classes } = props;
-  // Declare a new state variable, which we'll call "count"
-  const [login, setLogin] = useState({ name : "", password : ""});
+  const [login, setLogin] = useState({ email : "", password : ""});
+  const [loginDialogOpen, setLoginDialog] = useState(false);
+  const error = ( object ) => {
+    let isValid = object.email === "" && object.password === ""
+    if(isValid){
+      setLoginDialog(true);
+      return;
+    }
+  }
 
   return (
     <div>
+    <LoginDialog
+          loginDialogOpen={loginDialogOpen}
+          setLoginDialog={setLoginDialog}
+          title={"Login"}
+          message={"You must provide an email, and a password."}
+      />
       <Paper className={classes.root} elevation={1}>
         <Typography variant="h5" component="h3">
           Login
         </Typography>
         <TextField
+          required
           id="email"
           label="Email"
           className={classes.textField}
@@ -48,6 +77,7 @@ const Login = (props) => {
           onChange={ e => setLogin({ email  : e.target.value , password : login.password })}
         /><br />
         <TextField
+          required
           id="password"
           label="Password"
           className={classes.textField}
@@ -56,13 +86,15 @@ const Login = (props) => {
           variant="outlined"
           value={login.password}
           onChange={ e => setLogin({ email : login.email , password : e.target.value})}
-        /><br/>
+        /><br/><br/>
 
-
-        <Button variant="outlined" size="large" color="primary" onClick={() => console.log(login)}>
+        <Button variant="outlined" size="large" color="primary" onClick={() => error(login)}>
           Login
         </Button>
+
       </Paper>
+
+
     </div>
   );
 }
