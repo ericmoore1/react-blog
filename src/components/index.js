@@ -1,3 +1,3 @@
 import Header from './Header';
-
-export {Header};
+import BlogCard from './BlogCard';
+export {Header, BlogCard};
