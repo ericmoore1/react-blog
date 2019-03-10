@@ -6,7 +6,7 @@ import { Editor } from 'react-draft-wysiwyg';
 
 import 'whatwg-fetch';
 /* global fetch */
-import './../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const styles = theme => ({
   toolbar: {
@@ -22,9 +22,10 @@ const styles = theme => ({
     border: '1px solid #f9f9f9'
   }
 
+
 });
 
-class WisyEditor extends Component {
+class WisyEditor2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,4 +113,4 @@ class WisyEditor extends Component {
   }
 }
 
-export default WisyEditor;
+export default WisyEditor2;

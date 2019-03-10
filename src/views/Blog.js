@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {BlogHeader} from '../components/index';
 import {BlogsAPI} from '../api/index';
-import { Link } from 'react-router-dom'
 
 const GET_BLOG = BlogsAPI.getBlog;
 
@@ -23,6 +22,8 @@ const Blog = (props) => {
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
+
+    // using the js api to set blog
     GET_BLOG(id)(setBlog);
   }
   const theComponent = ( 'error' in blog ) ? <Error /> : <ShowBlog {...blog}/>
