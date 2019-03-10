@@ -26,7 +26,6 @@ const styles = {
 
 const BlogHeader = (props) => {
   const { classes, title } = props;
-  console.log("Here",process.env.REACT_APP_HOST);
   return (
     <div className={classes.root}>
       <AppBar position="static">

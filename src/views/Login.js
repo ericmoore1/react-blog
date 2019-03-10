@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import {LoginAPI} from '../api/index'
 
 const styles = theme => ({
   root: {
@@ -39,15 +40,23 @@ return(
   </Dialog>)
 
 }
+
 const Login = (props) => {
   const { classes } = props;
   const [login, setLogin] = useState({ email : "", password : ""});
   const [loginDialogOpen, setLoginDialog] = useState(false);
-  const error = ( object ) => {
+
+  const attemptLogin = ( object ) => {
     let isValid = object.email === "" || object.password === ""
     if(isValid){
       setLoginDialog(true);
       return;
+    }else{
+      LoginAPI.login(object)
+          .then( json => {
+            console.log("login: ",json);
+          })
+          .catch( err => console.log( "ERROR: ", err ));
     }
   }
 
@@ -86,7 +95,7 @@ const Login = (props) => {
           onChange={ e => setLogin({ email : login.email , password : e.target.value})}
         /><br/><br/>
 
-        <Button variant="outlined" size="large" color="primary" onClick={() => error(login)}>
+        <Button variant="outlined" size="large" color="primary" onClick={() => attemptLogin(login)}>
           Login
         </Button>
 

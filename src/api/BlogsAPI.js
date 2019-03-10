@@ -38,13 +38,6 @@ const BLOGS = [{
 }
 ];
 
-export const login = () => {
-  return fetch(URL,{})
-  .then(function(response) {
-    return response.json()
-  })
-}
-
 export const getBlogs = (setBlogs) => {
     setTimeout(function(){
       setBlogs(BLOGS);

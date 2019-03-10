@@ -85,7 +85,7 @@ class WisyEditor2 extends Component {
   /* Fetch the user's avatar from the server, add to state */
   user_avatar_image = () => {
       return;
-    let url = process.env.REACT_APP_API_HOST + '/index.php/Userprofile/fetch_user_avatar';
+    //let url =  + '/index.php/Userprofile/fetch_user_avatar';
       fetch(url,{
           credentials : 'include',
           mode : 'cors'
