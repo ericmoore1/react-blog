@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import Typography from '@material-ui/core/Typography';
 import {Header} from '../components/index';
 import {WisyEditor2} from '../components/wysiwyg/index';
 import {LoginAPI,BlogsAPI} from '../api/index';
@@ -46,30 +48,15 @@ const CreateBlog = (props) => {
     })
     .catch( err => console.log( "ERROR: ", err ));
   }
-  const blogObject = {"title" : title , "subtitle" : subtitle, "blog" : content }
+  const blogObject = {"title" : title , "subtitle" : subtitle, "blog" : content };
+  let _title = title === "" ? "" : "Title: " + title;
+  let _stitle = subtitle === "" ? "" : "    Subtitle: " + subtitle;
+  _title += _stitle;
   return (
     <div>
-    <Header title="Create Blog" />
-    <TextField
-          id="title"
-          label="Title"
-          className={classes.textField}
-          value={title}
-          onChange={(e) => setTitle( e.target.value )}
-          margin="normal"
-          variant="outlined"
-        />
 
-        <TextField
-              id="subtitle"
-              label="Subtitle"
-              value={subtitle}
-              className={classes.textField}
-              onChange={(e) => setSubtitle( e.target.value )}
-              margin="normal"
-              variant="outlined"
-            />
-    <div style={{ width : '80%', marginLeft : '10%', marginTop : '1%', clear : 'both'}}>
+    <Header title={_title} />
+    <div style={{ width : '80%', height : '70vh',marginLeft : '10%', marginTop : '1%', clear : 'both'}}>
     <WisyEditor2 setContent={setContent}/>
     </div>
 
@@ -89,47 +76,60 @@ const CreateBlog = (props) => {
     Save
     </Button>
 
-
-
-
-
-
-  <Dialog
+    <Dialog
     open={titleDialog}
     onClose={() => setTitleDialog(false)}
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
-  >
-  <DialogTitle id="alert-dialog-title">{"Add a Title and Subtitle"}</DialogTitle>
+    >
+    <DialogTitle id="alert-dialog-title">{"Add a Title and Subtitle"}</DialogTitle>
+    <DialogContent>
+    <TextField
+    id="title"
+    label="Title"
+    className={classes.textField}
+    value={title}
+    onChange={(e) => setTitle( e.target.value )}
+    margin="normal"
+    variant="outlined"
+    />
 
-  <DialogActions>
+    <TextField
+    id="subtitle"
+    label="Subtitle"
+    value={subtitle}
+    className={classes.textField}
+    onChange={(e) => setSubtitle( e.target.value )}
+    margin="normal"
+    variant="outlined"
+    />
+
+    </DialogContent>
+    <DialogActions>
     <Button onClick={() => setTitleDialog(false)} color="primary" autoFocus>
-      Done
+    Done
     </Button>
-  </DialogActions>
-</Dialog>
+    </DialogActions>
+    </Dialog>
 
+    <Dialog
+    open={saveDialogOpen}
+    onClose={() => setSaveDialogOpen(false)}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    >
+    <DialogTitle id="alert-dialog-title">{"You must have a title and subtitle"}</DialogTitle>
 
-
-
-
-<Dialog
-  open={saveDialogOpen}
-  onClose={() => setSaveDialogOpen(false)}
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
->
-<DialogTitle id="alert-dialog-title">{"You must have a title and subtitle"}</DialogTitle>
-
-<DialogActions>
-  <Button onClick={() => setSaveDialogOpen(false)} color="primary" autoFocus>
+    <DialogActions>
+    <Button onClick={() => {
+      setSaveDialogOpen(false);
+      setTitleDialog(true);
+    }}
+    color="primary" autoFocus>
     Got It
-  </Button>
-</DialogActions>
-</Dialog>
-
-
-
+    </Button>
+    </DialogActions>
+    </Dialog>
 
     </div>
   );
