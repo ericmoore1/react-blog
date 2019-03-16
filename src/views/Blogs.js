@@ -13,7 +13,10 @@ const Blogs = () => {
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
-    GET_BLOGS().then( json => setBlogs(json.data))
+    GET_BLOGS().then( json => {
+      console.log(json);
+      setBlogs(json.data)
+    });
   }
 
   return (
