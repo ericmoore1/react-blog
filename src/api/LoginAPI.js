@@ -3,7 +3,7 @@ const URL = process.env.REACT_APP_API_HOST;
 export const login = (data) => {
    let body = {
      batch : false,
-     table : 'users',
+     __keys : '*',
      data : [data]
    };
   let formData = new FormData();

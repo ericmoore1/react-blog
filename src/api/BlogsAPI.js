@@ -17,12 +17,12 @@ export const saveBlog = (blog) => {
 
   let body = {
     batch : false,
-    table : 'blogs',
+    __keys : [ "title", "subtitle","user_id"],
     data : [blog]
   };
  let formData = new FormData();
  formData.append("data", JSON.stringify(body));
-  fetch(URL + '/create',{
+  fetch(URL + '/create/blogs',{
     method : 'POST',
     credentials : 'include',
     mode : 'cors',
@@ -30,7 +30,11 @@ export const saveBlog = (blog) => {
   })
   .then(function(response) {
     return response.json()
-  }).then( json => console.log("saveBlog: ",json));
+  }).then( json => {
+     if('last_id' in json ){
+       window.location = '/blog/' + json.last_id
+     }
+  });
 }
 export const getBlog = ( blogId ) => (setBlog) => {
     let blog = undefined;
