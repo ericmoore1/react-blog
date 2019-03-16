@@ -1,47 +1,16 @@
 import 'whatwg-fetch'
-const URL = "";
-const BLOGS = [{
-  id : 1,
-  client_id : 1,
-  title : 'Blog 1',
-  subtitle : 'blog 1 subtitle'
-},
-{
-  id : 2,
-  client_id : 1,
-  title : 'Blog 2',
-  subtitle : 'blog 2 subtitle'
-},
-{
-  id : 3,
-  client_id : 1,
-  title : 'Blog 3',
-  subtitle : 'blog 3 subtitle'
-},
-{
-  id : 4,
-  client_id : 2,
-  title : 'Blog 4',
-  subtitle : 'blog 4 subtitle'
-},
-{
-  id : 5,
-  client_id : 2,
-  title : 'Blog 5',
-  subtitle : 'blog 5 subtitle'
-},
-{
-  id : 6,
-  client_id : 2,
-  title : 'Blog 6',
-  subtitle : 'blog 6 subtitle'
-}
+const URL = process.env.REACT_APP_API_HOST;
+const BLOGS = [
 ];
-
-export const getBlogs = (setBlogs) => {
-    setTimeout(function(){
-      setBlogs(BLOGS);
-    }, 1000);
+export const getBlogs = () => {
+  return fetch(URL + '/read/blogs',{
+    method : 'GET',
+    credentials : 'include',
+    mode : 'cors',
+  })
+  .then(function(response) {
+    return response.json()
+  })
 }
 
 export const getBlog = ( blogId ) => (setBlog) => {
