@@ -6,7 +6,7 @@ import { Editor } from 'react-draft-wysiwyg';
 
 import 'whatwg-fetch';
 /* global fetch */
-import './../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const styles = theme => ({
   toolbar: {
@@ -84,7 +84,7 @@ class WisyEditor extends Component {
   /* Fetch the user's avatar from the server, add to state */
   user_avatar_image = () => {
       return;
-    // let url = + '/index.php/Userprofile/fetch_user_avatar';
+     let url = + '/index.php/Userprofile/fetch_user_avatar';
       fetch(url,{
           credentials : 'include',
           mode : 'cors'

@@ -13,6 +13,9 @@ export const getBlogs = () => {
   })
 }
 
+export const createblog = (blog) => {
+
+}
 export const getBlog = ( blogId ) => (setBlog) => {
     let blog = undefined;
     for( let i = 0; i < BLOGS.length; i++ ){
