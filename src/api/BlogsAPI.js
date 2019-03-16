@@ -13,8 +13,24 @@ export const getBlogs = () => {
   })
 }
 
-export const createblog = (blog) => {
+export const saveBlog = (blog) => {
 
+  let body = {
+    batch : false,
+    table : 'blogs',
+    data : [blog]
+  };
+ let formData = new FormData();
+ formData.append("data", JSON.stringify(body));
+  fetch(URL + '/create',{
+    method : 'POST',
+    credentials : 'include',
+    mode : 'cors',
+    body : formData
+  })
+  .then(function(response) {
+    return response.json()
+  }).then( json => console.log("saveBlog: ",json));
 }
 export const getBlog = ( blogId ) => (setBlog) => {
     let blog = undefined;
