@@ -56,7 +56,7 @@ const CreateBlog = (props) => {
 
     <Header title={_title} />
     <div style={{ width : '80%', height : '51vh',marginLeft : '10%', marginTop : '1%'}}>
-    <WisyEditor2 setContent={setContent}/>
+    <WisyEditor2 canEdit={true} setContent={setContent}/>
     </div>
 
     <Button

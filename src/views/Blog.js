@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import {BlogHeader} from '../components/index';
 import {BlogsAPI} from '../api/index';
-
+import { Editor } from 'react-draft-wysiwyg';
 const GET_BLOG = BlogsAPI.getBlog;
 
 const ShowBlog = (props) => <div>
                               <BlogHeader title={"Title: " + props.title + "  Subtitle: " + props.subtitle} />
                               <div>
-
+                              <Editor
+                                  toolbarHidden
+                                  readOnly
+                                  wrapperClassName="demo-wrapper"
+                                  editorClassName="demo-editor"
+                                  onContentStateChange={()=>{}}
+                              />
                               </div>
                             </div>
 

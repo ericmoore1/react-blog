@@ -1,15 +1,14 @@
 import React from 'react';
-import { Editor } from 'react-draft-wysiwyg';
+import CreateEdit from './CreateEdit';
+import ReadOnly from './ReadOnly';
 
-import './../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+const Editor = ( props ) => props.canEdit ? <CreateEdit {...props}/> : <ReadOnly {...props}/>;
 
 const WisyEditor2 = (props) => {
+    const { canEdit , setContent} = props;
+
     return(
-      <Editor
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onContentStateChange={props.setContent}
-      />
+      <Editor {...props} />
     )
 }
 
