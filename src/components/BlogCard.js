@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+
+import Edit from '@material-ui/icons/Edit';
+import Pageview from '@material-ui/icons/Pageview';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -27,10 +33,20 @@ const styles = {
     float : 'right'
   }
 };
+const HocButton = WrappeComponent => props => {
+  return props.canedit ? <Link to={props.url} className={props.classes.link}>
+    <Tooltip title={props.tooltip}>
+      <IconButton>
+        <WrappeComponent />
+      </IconButton>
+    </Tooltip>
+  </Link> : null;
+}
 
 const BlogCard = (props) => {
-  const { classes, id, title, subtitle } = props;
-
+  const { classes, id, title, subtitle, canedit } = props;
+  let HocView = HocButton(Pageview);
+  let HocEdit = HocButton(Edit);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -44,7 +60,17 @@ const BlogCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.buttonHolder}>
-        <Link to={"/blog/" + id } className={classes.link}><Button variant="outlined" color="primary">See More</Button></Link>
+        <HocView
+          canedit={true}
+          url={'blog/' + id}
+          classes={classes}
+          tooltip={'view blog'}/>
+
+        <HocEdit
+          canedit={canedit}
+          url={'editblog/' + id}
+          classes={classes}
+          tooltip={'edit blog'}/>
       </CardActions>
     </Card>
   );

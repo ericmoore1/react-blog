@@ -1,30 +1,39 @@
 import React, { useState } from 'react';
 import {Header,BlogCard} from '../components/index';
 import {BlogsAPI} from '../api/index';
+import Button from '@material-ui/core/Button';
 
 const GET_BLOGS = BlogsAPI.getBlogs;
-const BLOG_CARDS = ( blogs ) =>  blogs.map( ( blog, index ) =>  <BlogCard key={blog.id} {...blog} />);
-
-const Blogs = () => {
+const BLOG_CARDS = (canedit) => ( blogs ) =>  blogs.map( ( blog, index ) =>  <BlogCard canedit={canedit} key={blog.id} {...blog} />);
+const BlogButton = ( bool, actionFunct ) => { return bool ? <div  style={{margin : '1% 4%', textAlign : 'left'}}><Button variant="contained"
+color="primary" onClick={actionFunct}>Show My Blogs</Button></div> : null }
+const Blogs = (props) => {
   // Declare a new state variable, which we'll call "count"
   const [blogs, setBlogs] = useState([]);
   const [count, setCount] = useState(0);
-
+  const [userId, setUserId] = useState(0);
+  const [isUserBlogs , setIsUserBlogs] = useState(false);
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
     GET_BLOGS().then( json => {
       console.log(json);
       setBlogs(json.data)
+      if( "user_id" in json ){
+        setUserId(json.user_id);
+      }
     });
   }
 
+  let _blogButton = BlogButton( userId > 0,() => setIsUserBlogs(!isUserBlogs));
+  let _blogs = isUserBlogs ? blogs.filter( blog => blog.user_id === userId) : blogs;
   return (
     <div>
      <Header title="Blogs" />
-
+     {_blogButton}
      <div>
-      {BLOG_CARDS(blogs)}
+
+      {BLOG_CARDS(isUserBlogs)(_blogs)}
      </div>
     </div>
   );
