@@ -1,7 +1,5 @@
 import 'whatwg-fetch'
 const URL = process.env.REACT_APP_API_HOST;
-const BLOGS = [
-];
 export const getBlogs = () => {
   return fetch(URL + '/read/blogs',{
     method : 'GET',
@@ -11,6 +9,18 @@ export const getBlogs = () => {
   .then(function(response) {
     return response.json()
   })
+}
+
+export const saveJson = (id,jsonFileData) =>{
+  let formData = new FormData();
+  let body = { "id" : id, "json" : jsonFileData};
+  formData.append("data", JSON.stringify(body));
+   fetch(URL + '/json',{
+     method : 'POST',
+     credentials : 'include',
+     mode : 'cors',
+     body : formData
+   });
 }
 
 export const saveBlog = (blog) => {
@@ -32,23 +42,25 @@ export const saveBlog = (blog) => {
     return response.json()
   }).then( json => {
      if('last_id' in json ){
+       saveJson(json.last_id,blog.blog);
        window.location = '/blog/' + json.last_id
      }
   });
 }
-export const getBlog = ( blogId ) => (setBlog) => {
-    let blog = undefined;
-    for( let i = 0; i < BLOGS.length; i++ ){
-      let _blog = BLOGS[i];
-      if( _blog.id === blogId ){
-        blog = _blog;
-      }
-    }
 
-    if(!blog){
-      blog = { error : true }
-    }
-    setTimeout(function(){
-      setBlog(blog);
-    }, 1000);
+export const getBlog = ( blogId ) => (setBlog) => {
+  fetch(URL + '/read/blogs/' + blogId,{
+    method : 'GET',
+    credentials : 'include',
+    mode : 'cors'
+  })
+  .then(function(response) {
+    return response.json()
+  }).then( json => {
+      if( "error" in json ){
+        setBlog({ error : true });
+        return;
+      }
+      setBlog(json.data[0]);
+  });
 }

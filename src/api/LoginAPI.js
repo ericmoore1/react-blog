@@ -18,3 +18,15 @@ export const login = (data) => {
     return response.json()
   })
 }
+
+export const checkLogin = (checkLoginFunct) =>{
+  fetch(URL + '/checklogin',{
+    method : 'POST',
+    credentials : 'include',
+    mode : 'cors'
+  })
+  .then(function(response) {
+    return response.json()
+  })
+  .then( data => checkLoginFunct(data));
+}

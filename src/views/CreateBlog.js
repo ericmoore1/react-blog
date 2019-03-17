@@ -6,7 +6,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import Typography from '@material-ui/core/Typography';
 import {Header} from '../components/index';
 import {WisyEditor2} from '../components/wysiwyg/index';
 import {LoginAPI,BlogsAPI} from '../api/index';
@@ -20,15 +19,15 @@ const styles = theme => ({
   }
 
 });
-
 const SAVE_BLOG = BlogsAPI.saveBlog;
 const CONTENT = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 const SAVE = (blob) => (dialogFunct) => () => {
+  console.log(blob);
   if(blob.title === "" || blob.subtitle === ""){
     dialogFunct(true);
     return;
   }
-  BlogsAPI.saveBlog(blob);
+  SAVE_BLOG(blob);
 }
 const CreateBlog = (props) => {
   const { classes } = props;

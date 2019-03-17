@@ -5,13 +5,16 @@ import {BlogsAPI} from '../api/index';
 const GET_BLOG = BlogsAPI.getBlog;
 
 const ShowBlog = (props) => <div>
-                              <BlogHeader title={props.title} />
+                              <BlogHeader title={"Title: " + props.title + "  Subtitle: " + props.subtitle} />
                               <div>
-                                {props.subtitle}
+
                               </div>
                             </div>
-const Error = () => <h1>{'Error! The blog does not exist...'}</h1>
 
+const Error = () => <div>
+                      <BlogHeader title={"Error"} />
+                      <h1>{'Error! The blog does not exist...'}</h1>
+                    </div>
 
 const Blog = (props) => {
   // Declare a new state variable, which we'll call "count"
@@ -22,10 +25,10 @@ const Blog = (props) => {
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
-
     // using the js api to set blog
     GET_BLOG(id)(setBlog);
   }
+  console.log(blog)
   const theComponent = ( 'error' in blog ) ? <Error /> : <ShowBlog {...blog}/>
   return (
     <div>
@@ -33,5 +36,4 @@ const Blog = (props) => {
     </div>
   );
 }
-
 export default Blog
