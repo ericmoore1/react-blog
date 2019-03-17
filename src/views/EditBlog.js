@@ -8,7 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import {Header} from '../components/index';
 import {WisyEditor2} from '../components/wysiwyg/index';
-import {LoginAPI,BlogsAPI} from '../api/index';
+import {BlogsAPI} from '../api/index';
+
+import { EditorState, convertFromRaw } from 'draft-js';
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -20,7 +23,9 @@ const styles = theme => ({
 
 });
 const SAVE_BLOG = (blog) => console.log("Blog: " , blog);
-const CONTENT = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+const GET_BLOG = BlogsAPI.getBlog;
+const GET_JSON = BlogsAPI.getJson
+// const CONTENT = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 const SAVE = (blob) => (dialogFunct) => () => {
   console.log(blob);
   if(blob.title === "" || blob.subtitle === ""){
@@ -29,51 +34,66 @@ const SAVE = (blob) => (dialogFunct) => () => {
   }
   SAVE_BLOG(blob);
 }
+
+const HocBtn = Component => props => <Component
+                                        onClick={() => props.onClick()}
+                                        variant={props.variant}
+                                        color={props.color}
+                                        className={props.classes.button}>
+                                        {props.msg}
+                                      </Component>
 const EditBlog = (props) => {
-  const { classes } = props;
+  const { classes,match } = props;
+  const id = parseInt(match.params.id);
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = useState(0);
-  const [content, setContent] = useState(CONTENT);
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const [titleDialog, setTitleDialog] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editorState , setEditorState] = useState("");
+
+  // editorState={props.editorState}
+  // onEditorStateChange={props.onEditorStateChange}
+  // onContentStateChange={props.setContent}
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
-    LoginAPI.login({ email : "", password : ""})
-    .then( json => {
-      if(!("success" in json)){window.location = '/blogs'}
-    })
-    .catch( err => console.log( "ERROR: ", err ));
+    GET_BLOG(id)((json) => {
+      console.log(json);
+      if(!('user_id' in json )){
+        window.location = '/blogs'
+      }
+      setTitle(json.title);
+      setSubtitle(json.subtitle);
+
+    } );
+
+    GET_JSON(id)((json) => {
+      console.log(json);
+      setContent(json);
+      setEditorState(EditorState.createWithContent(convertFromRaw(json)))
+    });
   }
   const blogObject = {"title" : title , "subtitle" : subtitle, "blog" : content };
   let _title = title === "" ? "" : "Title: " + title;
   let _stitle = subtitle === "" ? "" : "    Subtitle: " + subtitle;
   _title += _stitle;
+  let _editMsgBtn = isEditing ? "View Blog" : "Edit Blog";
+  let HocButton = HocBtn(Button);
   return (
     <div>
 
     <Header title={_title} />
     <div style={{ width : '80%', height : '51vh',marginLeft : '10%', marginTop : '1%'}}>
-    <WisyEditor2 canEdit={true} setContent={setContent}/>
+    <WisyEditor2 canEdit={isEditing} eitorState={editorState} setEditorState={setEditorState} setContent={setContent}/>
     </div>
 
-    <Button
-    onClick={() => setTitleDialog(true)}
-    variant="contained"
-    color="secondary"
-    className={classes.button}>
-    Set Title
-    </Button>
-
-    <Button
-    onClick={SAVE(blogObject)(setSaveDialogOpen)}
-    variant="contained"
-    color="primary"
-    className={classes.button}>
-    Edit
-    </Button>
+    <HocButton onClick={() => setIsEditing(!isEditing)} variant={"contained"} color={"secondary"} classes={classes} msg={_editMsgBtn}/>
+    <HocButton onClick={() => setTitleDialog(true)} variant={"contained"} color={"secondary"} classes={classes} msg={'Set Title'}/>
+    {isEditing ? <HocButton onClick={SAVE(blogObject)(setSaveDialogOpen)} variant={"contained"} color={"primary"} classes={classes} msg={'Edit'}/> : null}
 
     <Dialog
     open={titleDialog}

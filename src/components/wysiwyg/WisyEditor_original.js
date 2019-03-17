@@ -101,9 +101,11 @@ class WisyEditor extends Component {
       <Editor
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor"
+
           editorState={this.state.editorState}
           onEditorStateChange={this.onEditorStateChange}
           onContentStateChange={this.onContentStateChange}
+
           toolbarClassName={styles.toolbar}
           editorClassName={styles.editor}
 

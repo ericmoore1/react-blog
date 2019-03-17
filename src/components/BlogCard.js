@@ -11,7 +11,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
 const styles = {
@@ -60,17 +59,17 @@ const BlogCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.buttonHolder}>
-        <HocView
-          canedit={true}
-          url={'blog/' + id}
-          classes={classes}
-          tooltip={'view blog'}/>
-
         <HocEdit
           canedit={canedit}
           url={'editblog/' + id}
           classes={classes}
           tooltip={'edit blog'}/>
+
+          <HocView
+            canedit={true}
+            url={'blog/' + id}
+            classes={classes}
+            tooltip={'view blog'}/>
       </CardActions>
     </Card>
   );

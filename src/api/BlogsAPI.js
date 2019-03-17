@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 const URL = process.env.REACT_APP_API_HOST;
+
 export const getBlogs = () => {
   return fetch(URL + '/read/blogs',{
     method : 'GET',
@@ -15,12 +16,26 @@ export const saveJson = (id,jsonFileData) =>{
   let formData = new FormData();
   let body = { "id" : id, "json" : jsonFileData};
   formData.append("data", JSON.stringify(body));
-   fetch(URL + '/json',{
+   fetch(URL + '/savejson',{
      method : 'POST',
      credentials : 'include',
      mode : 'cors',
      body : formData
    });
+}
+
+export const getJson = id => setJsonFunct =>{
+  let formData = new FormData();
+  let body = { "id" : id};
+  formData.append("data", JSON.stringify(body));
+   fetch(URL + '/getjson',{
+     method : 'POST',
+     credentials : 'include',
+     mode : 'cors',
+     body : formData
+   })
+   .then( res => res.json())
+   .then( json => setJsonFunct(json));
 }
 
 export const saveBlog = (blog) => {

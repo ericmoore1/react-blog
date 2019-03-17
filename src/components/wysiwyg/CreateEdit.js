@@ -8,6 +8,8 @@ const CreateEdit = (props) => {
       <Editor
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor"
+          editorState={props.editorState}
+          onEditorStateChange={props.setEditorState}
           onContentStateChange={props.setContent}
       />
     )
