@@ -149,7 +149,6 @@ const EditBlog = (props) => {
     </Button>
     </DialogActions>
     </Dialog>
-
     </div>
   );
 }
