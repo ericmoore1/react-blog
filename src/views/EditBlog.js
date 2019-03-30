@@ -55,9 +55,6 @@ const EditBlog = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editorState , setEditorState] = useState("");
 
-  // editorState={props.editorState}
-  // onEditorStateChange={props.onEditorStateChange}
-  // onContentStateChange={props.setContent}
   // so component will not keep mounting.
   if(count === 0){
     setCount(1);
@@ -88,7 +85,11 @@ const EditBlog = (props) => {
 
     <Header title={_title} />
     <div style={{ width : '80%', height : '51vh',marginLeft : '10%', marginTop : '1%'}}>
-    <WisyEditor2 canEdit={isEditing} eitorState={editorState} setEditorState={setEditorState} setContent={setContent}/>
+    <WisyEditor2
+      canEdit={isEditing}
+      editorState={editorState}
+      setEditorState={setEditorState}
+      setContent={setContent}/>
     </div>
 
     <HocButton onClick={() => setIsEditing(!isEditing)} variant={"contained"} color={"secondary"} classes={classes} msg={_editMsgBtn}/>

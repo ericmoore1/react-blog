@@ -34,6 +34,7 @@ const CreateBlog = (props) => {
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = useState(0);
   const [content, setContent] = useState(CONTENT);
+  const [editorState , setEditorState] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
@@ -51,12 +52,21 @@ const CreateBlog = (props) => {
   let _title = title === "" ? "" : "Title: " + title;
   let _stitle = subtitle === "" ? "" : "    Subtitle: " + subtitle;
   _title += _stitle;
+
+
+  // editorState={editorState}
+  // setEditorState={setEditorState}
+
   return (
     <div>
 
     <Header title={_title} />
     <div style={{ width : '80%', height : '51vh',marginLeft : '10%', marginTop : '1%'}}>
-    <WisyEditor2 canEdit={true} setContent={setContent}/>
+    <WisyEditor2
+      canEdit={true}
+      editorState={editorState}
+      setEditorState={setEditorState}
+      setContent={setContent}/>
     </div>
 
     <Button
