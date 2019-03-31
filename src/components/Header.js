@@ -4,9 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
+import LinkBar from './LinkBar'
 import {LoginAPI} from '../api/index';
 
 const CHECK_LOGIN = LoginAPI.checkLogin
@@ -27,7 +25,7 @@ const styles = {
     textDecoration : 'none'
   }
 };
-const ButtonBar = (data) =>  data.bool ? <span><Link to={"/createblog"} className={data.classes.link}><Button className={data.classes.button}>Create Blog Entry</Button></Link></span> : null
+
 function Header(props) {
   const { classes, title } = props;
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -39,7 +37,7 @@ function Header(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
           </Typography>
-            <ButtonBar bool={isLoggedIn} classes={classes} />
+            <LinkBar bool={isLoggedIn} classes={classes} />
         </Toolbar>
 
       </AppBar>
