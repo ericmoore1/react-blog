@@ -22,17 +22,17 @@ const styles = theme => ({
   }
 
 });
-const SAVE_BLOG = (blog) => console.log("Blog: " , blog);
+const SAVE_BLOG = (blog,blogContent) => BlogsAPI.updateBlog(blog,blogContent);
 const GET_BLOG = BlogsAPI.getBlog;
 const GET_JSON = BlogsAPI.getJson
 // const CONTENT = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
-const SAVE = (blob) => (dialogFunct) => () => {
-  console.log(blob);
-  if(blob.title === "" || blob.subtitle === ""){
+const SAVE = (blog,content) => (dialogFunct) => () => {
+  console.log(blog);
+  if(blog.title === "" || blog.subtitle === ""){
     dialogFunct(true);
     return;
   }
-  SAVE_BLOG(blob);
+  SAVE_BLOG(blog,content);
 }
 
 const HocBtn = Component => props => <Component
@@ -59,7 +59,6 @@ const EditBlog = (props) => {
   if(count === 0){
     setCount(1);
     GET_BLOG(id)((json) => {
-      console.log(json);
       if(!('user_id' in json )){
         window.location = '/blogs'
       }
@@ -69,12 +68,13 @@ const EditBlog = (props) => {
     } );
 
     GET_JSON(id)((json) => {
-      console.log(json);
       setContent(json);
       setEditorState(EditorState.createWithContent(convertFromRaw(json)))
     });
   }
-  const blogObject = {"title" : title , "subtitle" : subtitle, "blog" : content };
+
+  const blogObject = {"id" : props.match.params.id ,"title" : title , "subtitle" : subtitle};
+  const _content = content;
   let _title = title === "" ? "" : "Title: " + title;
   let _stitle = subtitle === "" ? "" : "    Subtitle: " + subtitle;
   _title += _stitle;
@@ -94,7 +94,7 @@ const EditBlog = (props) => {
 
     <HocButton onClick={() => setIsEditing(!isEditing)} variant={"contained"} color={"secondary"} classes={classes} msg={_editMsgBtn}/>
     <HocButton onClick={() => setTitleDialog(true)} variant={"contained"} color={"secondary"} classes={classes} msg={'Set Title'}/>
-    {isEditing ? <HocButton onClick={SAVE(blogObject)(setSaveDialogOpen)} variant={"contained"} color={"primary"} classes={classes} msg={'Edit'}/> : null}
+    {isEditing ? <HocButton onClick={SAVE(blogObject,_content)(setSaveDialogOpen)} variant={"contained"} color={"primary"} classes={classes} msg={'Edit'}/> : null}
 
     <Dialog
     open={titleDialog}

@@ -17,7 +17,6 @@ const Blogs = (props) => {
   if(count === 0){
     setCount(1);
     GET_BLOGS().then( json => {
-      console.log(json);
       setBlogs(json.data)
       if( "user_id" in json ){
         setUserId(json.user_id);

@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 const URL = process.env.REACT_APP_API_HOST;
-
+const URL_V1 = process.env.REACT_APP_API_HOST_v1;
 export const getBlogs = () => {
   return fetch(URL + '/read/blogs',{
     method : 'GET',
@@ -77,5 +77,28 @@ export const getBlog = ( blogId ) => (setBlog) => {
         return;
       }
       setBlog(json.data[0]);
+  });
+}
+
+export const updateBlog = (blog,jsonContent) =>{
+  let body = {
+    batch : false,
+    __keys : [ "title", "subtitle"],
+    data : [blog]
+  };
+
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(body));
+
+  fetch(URL_V1 + 'update/blogs',{
+    method : 'POST',
+    credentials : 'include',
+    mode : 'cors',
+    body : formData
+  })
+  .then(function(response) {
+    return response.json()
+  }).then( json => {
+     saveJson(blog.id,jsonContent);
   });
 }

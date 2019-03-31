@@ -34,7 +34,7 @@ const Blog = (props) => {
     // using the js api to set blog
     GET_BLOG(id)(setBlog);
   }
-  console.log(blog)
+
   const theComponent = ( 'error' in blog ) ? <Error /> : <ShowBlog {...blog}/>
   return (
     <div>

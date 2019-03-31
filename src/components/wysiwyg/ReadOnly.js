@@ -5,7 +5,6 @@ import './../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css
 
 //onContentStateChange={props.setContent}
 const ReadOnly = (props) => {
-  console.log("ReadOnly: ",props);
     return(
       <Editor
         toolbarHidden

@@ -27,7 +27,7 @@ const styles = {
     textDecoration : 'none'
   }
 };
-const ButtonBar = (data) =>  data.bool ? <Link to={"/createblog"} className={data.classes.link}><Button className={data.classes.button}>Create Blog Entry</Button></Link> : null
+const ButtonBar = (data) =>  data.bool ? <span><Link to={"/createblog"} className={data.classes.link}><Button className={data.classes.button}>Create Blog Entry</Button></Link></span> : null
 function Header(props) {
   const { classes, title } = props;
   const [isLoggedIn, setIsLoggedIn] = useState(false)
