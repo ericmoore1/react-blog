@@ -25,7 +25,6 @@ const styles = theme => ({
 const SAVE_BLOG = (blog,blogContent) => BlogsAPI.updateBlog(blog,blogContent);
 const GET_BLOG = BlogsAPI.getBlog;
 const GET_JSON = BlogsAPI.getJson
-// const CONTENT = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 const SAVE = (blog,content) => (dialogFunct) => () => {
   console.log(blog);
   if(blog.title === "" || blog.subtitle === ""){
