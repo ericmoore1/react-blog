@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -10,8 +9,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import {LoginAPI} from '../api/index'
-
+import {LoginAPI} from '../api/index';
+import {Header} from '../components/index';
 const styles = theme => ({
   root: {
     width : '40%',
@@ -27,6 +26,8 @@ const styles = theme => ({
    marginRight: theme.spacing.unit,
  }
 });
+
+// const redirectLocation="/blogs";
 const LoginDialog = (props) => {
    const { loginDialogOpen , setLoginDialog, title, message} = props;
 return(
@@ -45,9 +46,14 @@ const Login = (props) => {
   const { classes } = props;
   const [login, setLogin] = useState({ email : "", password : ""});
   const [loginDialogOpen, setLoginDialog] = useState(false);
+  const [count,setCount] = useState(0)
+  if(count === 0){
+    setCount(1);
+    LoginAPI.logout();
+  }
 
   const attemptLogin = ( object ) => {
-    let isValid = object.email === "" || object.password === ""
+    let isValid = object.email === "" || object.password === "";
     if(isValid){
       setLoginDialog(true);
       return;
@@ -55,6 +61,9 @@ const Login = (props) => {
       LoginAPI.login(object)
           .then( json => {
             console.log("login: ",json);
+            if("success" in json){
+              props.history.push('/blogs');
+            }
           })
           .catch( err => console.log( "ERROR: ", err ));
     }
@@ -62,6 +71,7 @@ const Login = (props) => {
 
   return (
     <div>
+    <Header title="Login"/>
     <LoginDialog
           loginDialogOpen={loginDialogOpen}
           setLoginDialog={setLoginDialog}

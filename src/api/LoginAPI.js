@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 const URL = process.env.REACT_APP_API_HOST;
+const URL_V1 = process.env.REACT_APP_API_HOST_v1;
 export const login = (data) => {
    let body = {
      batch : false,
@@ -29,4 +30,15 @@ export const checkLogin = (checkLoginFunct) =>{
     return response.json()
   })
   .then( data => checkLoginFunct(data));
+}
+
+export const logout = () =>{
+  fetch(URL_V1 + 'logout/logout',{
+    method : 'POST',
+    credentials : 'include',
+    mode : 'cors'
+  })
+  .then( res => res.json())
+  .then( j => console.log(j))
+  .catch(err => console.log("ERROR: LoginAPI->Logout"));
 }
