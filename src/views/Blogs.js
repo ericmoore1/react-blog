@@ -5,8 +5,16 @@ import Button from '@material-ui/core/Button';
 
 const GET_BLOGS = BlogsAPI.getBlogs;
 const BLOG_CARDS = (canedit) => ( blogs ) =>  blogs.map( ( blog, index ) =>  <BlogCard canedit={canedit} key={blog.id} {...blog} />);
-const BlogButton = ( bool, actionFunct,title ) => { return bool ? <div  style={{margin : '1% 4%', textAlign : 'left'}}><Button variant="contained"
-color="primary" onClick={actionFunct}>{title}</Button></div> : null }
+const BlogButton = ( props) => { return props.bool ? <div  style={{margin : '1% 4%', textAlign : 'left'}}>
+<Button
+  variant="contained"
+  color="primary"
+  onClick={props.actionFunct}>{props.title}</Button>
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={props.actionFunct}>{props.title}</Button>
+  </div> : null }
 const Blogs = (props) => {
   // Declare a new state variable, which we'll call "count"
   const [blogs, setBlogs] = useState([]);
@@ -24,7 +32,13 @@ const Blogs = (props) => {
     });
   }
   let buttonTitle = !isUserBlogs ? 'Show My Blogs' : 'Show All Blogs';
-  let _blogButton = BlogButton( userId > 0,() => setIsUserBlogs(!isUserBlogs),buttonTitle);
+  let _theProps = {
+                    bool : userId > 0,
+                    actionFunct : () => setIsUserBlogs(!isUserBlogs),
+                    title : buttonTitle
+  };
+  let _blogButton = BlogButton(_theProps);
+  let _deleteButton = <Button></Button>
   let _blogs = isUserBlogs ? blogs.filter( blog => blog.user_id === userId) : blogs;
   return (
     <div>

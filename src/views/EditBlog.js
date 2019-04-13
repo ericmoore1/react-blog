@@ -93,7 +93,7 @@ const EditBlog = (props) => {
 
     <HocButton onClick={() => setIsEditing(!isEditing)} variant={"contained"} color={"secondary"} classes={classes} msg={_editMsgBtn}/>
     <HocButton onClick={() => setTitleDialog(true)} variant={"contained"} color={"secondary"} classes={classes} msg={'Set Title'}/>
-    {isEditing ? <HocButton onClick={SAVE(blogObject,_content)(setSaveDialogOpen)} variant={"contained"} color={"primary"} classes={classes} msg={'Edit'}/> : null}
+    {isEditing ? <HocButton onClick={SAVE(blogObject,_content)(setSaveDialogOpen)} variant={"contained"} color={"primary"} classes={classes} msg={'save'}/> : null}
 
     <Dialog
     open={titleDialog}
