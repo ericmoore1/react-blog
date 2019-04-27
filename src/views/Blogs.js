@@ -50,7 +50,7 @@ const Blogs = (props) => {
   let _blogButton = BlogButton(_theProps);
 
   let _myBlogs = blogs.filter( blog => blog.user_id === userId);
-  let _blogs = isUserBlogs ? _myBlogs : blogs;
+  let _blogs = isUserBlogs ? _myBlogs : blogs.filter( blog => blog.visible === "1" || blog.visible === 1 );
 
   let _props = {
       userBlogs : _myBlogs,

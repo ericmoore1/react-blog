@@ -102,3 +102,23 @@ export const updateBlog = (blog,jsonContent) =>{
      saveJson(blog.id,jsonContent);
   });
 }
+
+export const deleteBlogs = (blogs) =>{
+  let body = {
+    batch : true,
+    __keys : ["id"],
+    data : blogs,
+  };
+  console.log(body);
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(body));
+  fetch(URL_V1 + 'delete/blogs',{
+    method : 'POST',
+    credentials : 'include',
+    mode : 'cors',
+    body : formData
+  })
+  .then( res => res.json())
+  .then(j => console.log(j));
+
+}
