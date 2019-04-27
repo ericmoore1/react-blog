@@ -103,13 +103,12 @@ export const updateBlog = (blog,jsonContent) =>{
   });
 }
 
-export const deleteBlogs = (blogs) =>{
+export const deleteBlogs = async (blogs) =>{
   let body = {
     batch : true,
     __keys : ["id"],
     data : blogs,
   };
-  console.log(body);
   let formData = new FormData();
   formData.append("data", JSON.stringify(body));
   fetch(URL_V1 + 'delete/blogs',{

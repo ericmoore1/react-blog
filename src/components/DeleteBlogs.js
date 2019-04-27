@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import {BlogsAPI} from '../api/index';
+import {BlogsAPI,FileAPI} from '../api/index';
 const Transition = (props) => {
   return <Slide direction="up" {...props} />;
 }
@@ -15,8 +15,8 @@ const Transition = (props) => {
 const DELETE_BLOGS = ( blogs ) => {
     const blogsArray = Object.keys(blogs);
     if( blogsArray.length === 0 ){return;}
-    console.log(blogsArray);
     BlogsAPI.deleteBlogs(blogsArray);
+    FileAPI.deleteFiles(blogsArray);
 }
 
 const DeleteBlogs = (props) => {

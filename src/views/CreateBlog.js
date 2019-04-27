@@ -52,13 +52,8 @@ const CreateBlog = (props) => {
   let _stitle = subtitle === "" ? "" : "    Subtitle: " + subtitle;
   _title += _stitle;
 
-
-  // editorState={editorState}
-  // setEditorState={setEditorState}
-
   return (
     <div>
-
     <Header title={_title} />
     <div style={{ width : '80%', height : '51vh',marginLeft : '10%', marginTop : '1%'}}>
     <WisyEditor2
