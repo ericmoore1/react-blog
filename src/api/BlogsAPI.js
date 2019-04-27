@@ -103,7 +103,7 @@ export const updateBlog = (blog,jsonContent) =>{
   });
 }
 
-export const deleteBlogs = async (blogs) =>{
+export const deleteBlogs = (blogs) =>{
   let body = {
     batch : true,
     __keys : ["id"],

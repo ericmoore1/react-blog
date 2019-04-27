@@ -66,7 +66,7 @@ const DeleteBlogs = (props) => {
         <Button onClick={() => {_setItemsToDelete({}); _setIsDelete();}} color="primary">
           Cancel
         </Button>
-        <Button onClick={()=>{DELETE_BLOGS(itemsToDelete);_setItemsToDelete({}); _setIsDelete();}} color="primary">
+        <Button onClick={()=>{DELETE_BLOGS(itemsToDelete);_setItemsToDelete({}); _setIsDelete();_toggleParent();}} color="primary">
           Delete Selected Items
         </Button>
     </DialogActions>
