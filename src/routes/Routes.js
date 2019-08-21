@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom'
-import {Blog, Blogs,CreateBlog,EditBlog,Login} from '../views/index';
+import {Blog, Blogs,CreateBlog,EditBlog,Login,BlogByAuthor} from '../views/index';
 
 const Routes = () => {
   return (
@@ -10,6 +10,8 @@ const Routes = () => {
         <Route exact path='/createblog' component={CreateBlog} />
         <Route exact path='/blog/:id' component={Blog} />
         <Route exact path='/editblog/:id' component={EditBlog} />
+
+        <Route exact path='/blogbyauthor/:id' component={BlogByAuthor} />
         <Route render={() => <div>{"No Data"}</div>} />
       </Switch>
   );

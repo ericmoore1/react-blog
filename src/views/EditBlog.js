@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
@@ -55,6 +55,7 @@ const EditBlog = (props) => {
   const [editorState , setEditorState] = useState("");
 
   // so component will not keep mounting.
+
   if(count === 0){
     setCount(1);
     GET_BLOG(id)((json) => {

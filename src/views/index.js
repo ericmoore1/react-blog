@@ -3,4 +3,5 @@ import Blogs from './Blogs';
 import Blog from './Blog';
 import CreateBlog from './CreateBlog';
 import EditBlog from './EditBlog';
-export {Blog,Blogs,CreateBlog,EditBlog,Login};
+import BlogByAuthor from './BlogByAuthor';
+export {Blog,Blogs,CreateBlog,EditBlog,Login,BlogByAuthor};
