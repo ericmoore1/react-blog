@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {BlogHeader} from '../components/index';
+import {BlogHeader, Error} from '../components/index';
 import {BlogsAPI} from '../api/index';
 import {WisyEditor2} from '../components/wysiwyg/index';
 import { EditorState, convertFromRaw } from 'draft-js';
@@ -16,12 +16,6 @@ const ShowBlog = (props) => <div>
                                 setContent={props.setContent}/>
                               </div>
                               </div>
-
-
-const Error = () => <div>
-                      <BlogHeader title={"Error"} />
-                      <h1>{'Error! The blog does not exist...'}</h1>
-                    </div>
 
 const Blog = (props) => {
   // Declare a new state variable, which we'll call "count"
@@ -44,8 +38,8 @@ const Blog = (props) => {
 
   const canEdit = false;
   const _props = { blog, canEdit ,editorState,setEditorState, setContent : content};
-
-  const theComponent = ( 'error' in blog ) ? <Error /> : <ShowBlog {..._props}/>
+  const errorProps = { title : "Error", message : "Error! The blog does not exist..."};
+  const theComponent = ( 'error' in blog ) ? <Error {...errorProps}/> : <ShowBlog {..._props}/>
   return (
     <div>
      {theComponent}

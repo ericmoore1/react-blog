@@ -4,9 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import LinkBar from './LinkBar'
 import {LoginAPI} from '../api/index';
-
+import '../css/main.min.css';
 const CHECK_LOGIN = LoginAPI.checkLogin
 const styles = {
   root: {
@@ -19,7 +18,6 @@ const styles = {
   },
   button : {
     color : '#fff'
-
   },
   link :{
     textDecoration : 'none'
@@ -32,14 +30,13 @@ function Header(props) {
   CHECK_LOGIN( data => setIsLoggedIn("success" in data ));
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" >
+        <Toolbar className="app-bar">
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
-          </Typography>
-            <LinkBar bool={isLoggedIn} classes={classes} />
-        </Toolbar>
-
+            {props.children || []}
+            </Typography>
+          </Toolbar>
       </AppBar>
     </div>
   );

@@ -1,17 +1,13 @@
 import React, {useState,useEffect} from 'react';
 
-export const useHttp = (url, dependencies)=>{
+export const useHttp = (url, body,dependencies)=>{
   const [isLoading, setIsLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(null);
 
   useEffect(()=>{
     setIsLoading(true);
     console.log("Sending HTTP request to: ", url);
-    fetch(url,{
-      method : 'GET',
-      credentials : 'include',
-      mode : 'cors',
-    })
+    fetch(url,body)
     .then( res => res.json() )
     .then( data =>{
       setIsLoading(false);

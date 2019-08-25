@@ -1,3 +1,3 @@
-import {useHttp} from './Http';
+import { useHttp } from './Http';
 
 export {useHttp};
