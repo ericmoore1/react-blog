@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Header,BlogCard,DeleteBlogs} from '../components/index';
+import {BlogCard,DeleteBlogs} from '../components/index';
 import {BlogsAPI} from '../api/index';
 import Button from '@material-ui/core/Button';
 
@@ -60,7 +60,6 @@ const Blogs = (props) => {
   };
   return (
     <div>
-     <Header title="Blogs" />
      {_blogButton}
       {BLOG_CARDS(isUserBlogs)(_blogs)}
        <DeleteBlogs {..._props}/>

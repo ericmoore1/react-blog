@@ -1,12 +1,10 @@
-import React , { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {LoginAPI} from '../api/index';
 import '../css/main.min.css';
-const CHECK_LOGIN = LoginAPI.checkLogin
 const styles = {
   root: {
     flexGrow: 1,
@@ -26,8 +24,6 @@ const styles = {
 
 function Header(props) {
   const { classes, title } = props;
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  CHECK_LOGIN( data => setIsLoggedIn("success" in data ));
   return (
     <div className={classes.root}>
       <AppBar position="static" >

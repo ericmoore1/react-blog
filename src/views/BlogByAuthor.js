@@ -1,12 +1,9 @@
 import React, { useState,useEffect, useReducer } from 'react';
 import { useHttp } from '../custhooks';
-import {Header, Error,BlogHeader, LinkBar} from '../components/index';
+import {Header} from '../components/index';
 import {WisyEditor2} from '../components/wysiwyg/index';
 import { EditorState, convertFromRaw } from 'draft-js';
-import '../css/main.min.css';
-//'/getjson'
 
-// <BlogHeader title={"Title: " + props.blog.title + "  Subtitle: " + props.blog.subtitle} />
 const ShowBlog = (props) => <div>
 
                               <div style={{width : '80%', marginLeft : '10%'}}>
@@ -69,22 +66,20 @@ const Test = () => {
 
   const canEdit = false;
   const _props = { blog, canEdit ,editorState,setEditorState, setContent : content};
-  const errorProps = { title : "Error", message : "Error! The blog does not exist..."};
+  //const errorProps = { title : "Error", message : "Error! The blog does not exist..."};
   const theComponent = blog === 0 ? null : <ShowBlog {..._props}/>
 
   return (
     <div>
-    <Header title={blog.title} children={<LinkBar />}/>
-
     <div className="row">
       <div className="col-3">
-      <BlogHeader title={"Blogs"} />
+      <Header title={"Blogs"} />
         <ul className={"user-blogs"}>
           {data.map( (obj, index ) =><li onClick={()=> dispatch({ type : 'CHANGE_BLOG', blog : { title : obj.title, id : obj.id} }) } key={obj.id}>{obj.title}</li>)}
         </ul>
       </div>
       <div className="col-9">
-      <BlogHeader title={blog.title} />
+      <Header title={blog.title} />
         {theComponent}
       </div>
       </div>
